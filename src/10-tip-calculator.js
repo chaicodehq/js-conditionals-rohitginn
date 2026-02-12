@@ -11,7 +11,7 @@
  *   - 3 (okay)      → 15%
  *   - 4 (good)      → 20%
  *   - 5 (excellent) → 25%
- *
+ *||
  * Return an object with:
  *   - tipPercentage: the percentage as a number (e.g., 15)
  *   - tipAmount: the calculated tip rounded to 2 decimal places
@@ -31,4 +31,26 @@
  */
 export function calculateTip(billAmount, serviceRating) {
   // Your code here
+  if (billAmount <= 0) return null;
+  if (!Number.isInteger(serviceRating) || serviceRating < 1 || serviceRating > 5) return null;
+
+  const tipPercentages = {
+    1: 5,
+    2: 10,
+    3: 15,
+    4: 20,
+    5: 25
+  }
+
+  const tipPercentage = tipPercentages[serviceRating];
+
+  const tipAmount = Number((billAmount * tipPercentage/100).toFixed(2));
+
+  const totalAmount = Number((billAmount + tipAmount).toFixed(2));
+
+  return {
+    tipPercentage,
+    tipAmount,
+    totalAmount
+  };
 }
